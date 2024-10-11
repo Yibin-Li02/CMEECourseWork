@@ -7,33 +7,39 @@
 # Check if exactly two arguments are provided
 if [ $# -ne 3 ]; 
 then
-    echo "Error: Provide two input files and one output file."
+    echo "Error: Provide three files."
     exit 1
 fi
+
+# Assign input arguments to variables
+input_file1="$1"
+input_file2="$2"
+output_file="$3"
 
 # Check if both files exist
-if [ ! -f "$1" ]; 
+if [ ! -f "$input_file1" ]; 
 then
-    echo "Error: File '$1' does not exist."
+    echo "Error: File '$input_file1' does not exist."
     exit 1
 fi
 
-if [ ! -f "$2" ]; 
+if [ ! -f "$input_file2" ]; 
 then
-    echo "Error: File '$2' does not exist."
+    echo "Error: File '$input_file2' does not exist."
     exit 1
 fi
 
 # Check if the output file already exists
-if [ -f "$3" ]; 
+if [ -f "$output_file" ]; 
 then
-    echo "Error: Output file '$3' already exists."
+    echo "Error: Output file '$output_file' already exists."
     exit 1
 fi
 
-# Merged two files into one
-cat $1 > $3
-cat $2 >> $3
-echo "Merged File is"
-cat $3
+# Concatenate the contents of the two input files into the output file
+cat "$input_file1" > "$output_file"
+cat "$input_file2" >> "$output_file"
+echo "The contents of the merged file ($output_file) are"
+cat "$output_file"
+
 echo "Done!"

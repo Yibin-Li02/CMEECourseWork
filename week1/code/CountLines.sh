@@ -22,11 +22,12 @@ fi
 
 # Count the number of lines in the file
 NumLines=$(wc -l < "$1")
-echo "The file '$1' has $NumLines lines."
+if [ "$NumLines" -eq 0 ]; 
+then
+    echo "The file '$1' is empty."
+else
+    echo "The file '$1' has $NumLines line(s)."
+fi
 
-
-NumLines=`wc -l < $1`
-echo "The file $1 has $NumLines lines"
-
-echo "Done!"
+echo "Done"
 

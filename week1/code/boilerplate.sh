@@ -5,6 +5,8 @@
 # Arguments: none
 # Date: Oct 2019
 
+#simple boilerplate for shell scripts
+
 echo -e "\nThis is a shell script! \n"
 
 #exit

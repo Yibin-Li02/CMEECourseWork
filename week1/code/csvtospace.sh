@@ -1,51 +1,50 @@
 #!/bin/sh
 # Author: Yibin.Li24@imperial.ac.uk
 # Script: csvtospace.sh
-# Description: converts csv file to a space separated values file
+# Description: Converts all CSV files in a directory to space-separated values files
 # Date: Oct 2024
 
-# Check if the file was provided
-if [ $# -eq 0 ]; 
+# Set the target directory (replace with your intended path)
+target_dir=~/Documents/CMEECourseWork-Yibin.Li/week1/data
+
+# Set the output directory for results
+result_dir=~/Documents/CMEECourseWork-Yibin.Li/week1/results
+
+# Check if the target directory exists
+if [ ! -d "$target_dir" ]; 
 then
-    echo "No file provided. Please provide a CSV file."
+    echo "Error: Directory $target_dir does not exist."
     exit 1
 fi
 
-# Check if exactly one argument is provided
-
-if [ $# -ne 1 ];
+# Check if the result directory exists
+if [ ! -d "$result_dir" ]; 
 then
-    echo "Error: Provide only one file."
+    echo "Error: Directory $result_dir does not exist."
     exit 1
 fi
 
-input_file="$1"
+# Change to the target directory
+cd "$target_dir" || { echo "Error: Unable to change to directory $target_dir."; exit 1; }
 
-# Check if the file exists and ends with .csv
-if [ ! -f "$1" ]; 
-then 
-    echo "Error: File not found."
-    exit 1
-fi
-
-if [[ "$1" != *.csv ]]; 
-then 
-    echo "Error: Must be a .csv file."
-    exit 1
-fi
-
-# Check if the output file already exists
-
-output_file="${1%.*}_output.ssv"
-
-if [ -f "$output_file" ]; 
+# Check if there are any .csv files in the directory
+if ls *.csv 1> /dev/null 2>&1; 
 then
-    echo "Error: Output file '$output_file' already exists."
+    echo "CSV files found. Processing..."
+else
+    echo "No CSV files found in the directory."
     exit 1
 fi
 
-# Convert commas to space and save as .ssv
+# Loop through all .csv files and convert them
+for input_file in *.csv; 
+do
+# Create the output file name by replacing ".csv" with "-output.ssv"
+    output_file="$result_dir/${input_file%.csv}-output.ssv"
+    
+    echo "Converting $input_file to $output_file..."
+    tr "," " " < "$input_file" > "$output_file"
+    echo "$input_file converted successfully."
+done
 
-echo "Converting $1 to SSV format..."
-tr "," " " < "$1" > "${1%.*}_output.ssv"
-echo "Done!"
+echo "All CSV files processed successfully."

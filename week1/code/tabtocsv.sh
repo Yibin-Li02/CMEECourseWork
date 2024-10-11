@@ -10,27 +10,27 @@
 # Check if exactly one argument is provided
 if [ $# -ne 1 ];
 then
-    echo "Error: Provide only one file."
+    echo "Error: Provide only one .txt file."
     exit 1
 fi
 
 input_file="$1"
 
 # Check if the file exists and ends with .txt
-if [ ! -f "$1" ]; 
+if [ ! -f "$input_file" ]; 
 then 
-    echo "Error: File not found."
+    echo "Error: File '$input_file' not found."
     exit 1
 fi
 
-if [[ "$1" != *.txt ]]; 
+if [[ "$input_file" != *.txt ]]; 
 then 
-    echo "Error: Must be a .txt file."
+    echo "Error: '$input_file' must be a .txt file."
     exit 1
 fi
 
 # Check if the output file already exists
-output_file="${1%.*}.csv"
+output_file="${input_file%.*}.csv"
 if [ -f "$output_file" ]; 
 then
     echo "Error: Output file '$output_file' already exists."
@@ -38,8 +38,9 @@ then
 fi
 
 # Convert tabs to commas and save as .csv
-echo "Converting $1 to CSV format..."
-cat "$1" | tr "\t" "," > "${1%.*}.csv"
+echo "Converting $input_file to CSV format..."
+tr '\t' ',' < "$input_file" > "$output_file"
+
 echo "Done!"
 
 
