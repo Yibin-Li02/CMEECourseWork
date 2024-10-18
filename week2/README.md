@@ -1,5 +1,9 @@
 # Week 2 Overview
 
+*Auther: Yibin.Li*
+
+*Date: 18/10/2024*
+
 This directory contains python scripts, data and results for Week 2.
 
 ## Code:
