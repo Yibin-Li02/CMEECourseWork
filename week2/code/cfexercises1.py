@@ -75,7 +75,7 @@ def foo_6(x):
         x = x - 1
     return facto
 
-def main():
+def main(argv):
     print(foo_1(16))
     print(foo_2(9, 100))
     print(foo_3(5, 2, 4))
