@@ -11,7 +11,6 @@ import csv
 import sys
 import difflib
 import doctest
-import ipdb
 
 # Define function
 def is_an_oak(name):
@@ -53,7 +52,6 @@ def main(argv):
 
     oaks = set()
     for row in taxa:
-        ipdb.set_trace()
         print(row)
         print ("The genus is: ") 
         print(row[0] + '\n')
