@@ -89,10 +89,6 @@ Finds just those taxa that are oak trees from a list of species.
 
 A short .py script illustating how sys.argv works when run with different variables.
 
-21.testfile.py
-
-A .py script based on control_flow.
-
 22.using_name.py
 
 A .py script illustrating the difference between importing a module and running it as the main programme.
