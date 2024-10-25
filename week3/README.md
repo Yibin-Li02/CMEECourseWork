@@ -48,43 +48,39 @@ A .R script that plots Girko's circular law and saves figure as a pdf.
 
 A .R script that loads data from a .txt file and plots it as three line ranges with annotations for particular values.
 
-11.MyData
-
-A .R that illustrates data manipulation and handling in R, focusing on reading from and writing to CSV files while ensuring data integrity throughout the process.
-
-12.next
+11.next
 
 A .R script that uses next to ```skip``` to the next iteration of a loop.
 
-13.plotLin
+12.plotLin
 
 A .R script that demonstrates the relationship between two variables using linear regression and visually present this relationship, along with the residuals, in a clear and informative plot.
 
-14.preallocate
+13.preallocate
 
 A .R script that contains two methods of creating a matrix.
 
-15.Pred_Prey_Overlay
+14.Pred_Prey_Overlay
 
 A .R script performs a series of data manipulations and visualizations on a dataset regarding predator-prey interactions.
 
-16.R_conditional
+15.R_conditional
 
 A .R script defines three functions to perform specific mathematical checks.
 
-17.sample
+16.sample
 
 A .R script that contains 6 functions to test the speed of 5 different methods of calculating means.
 
-18.Treeheight
+17.Treeheight
 
 A .R script tcalculates heights of trees, using the trigonometric formula.
 
-19.try
+18.try
 
 A .R script to practise catching errors and debugging.
 
-20.Vectorize1
+19.Vectorize1
 
 A .R script defines a function to sum all elements of a matrix using two different approaches.
 
