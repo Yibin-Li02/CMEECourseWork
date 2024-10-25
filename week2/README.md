@@ -105,7 +105,7 @@ sequences.csv used for Practical 3, which has 2 sequences.
 TestOaksData.csv used for Practical 4, which has different species and genus.
 
 
-## resutls
+## results
 
 results is where the outpout from those scripts is sent to.
 
