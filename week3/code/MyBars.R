@@ -1,9 +1,13 @@
 #__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 #__version__ = '0.0.1'
 
+# Load the ggplot2 package for plotting
 require(ggplot2)
+
+# read data
 a <- read.table("../data/Results.txt", header = TRUE)
 
+# view data
 head(a)
 
 a$ymin <- rep(0, dim(a)[1]) # append a column of zeros

@@ -10,8 +10,8 @@ is.even <- function(n = 2) {  # Default value of 'n' is 2
   }
 }
 
+# Test the function with the input 6
 is.even(6)  # Test the function with the input 6
-
 
 # Function to check if a number is a power of 2
 is.power2 <- function(n = 2) {  # Default value of 'n' is 2
@@ -22,15 +22,23 @@ is.power2 <- function(n = 2) {  # Default value of 'n' is 2
   }
 }
 
-is.power2(4)  # Test the function with the input 4
+# Test the function with the input 4
+is.power2(4) 
 
 
 # Function to check if a number is prime
 is.prime <- function(n) {
+  if (is.na(n)) {  # Handle edge case where 'n' is NA
+    return('Input is NA, please provide a valid number.')
+  }
   if (n == 0) {  # Check if 'n' is zero
     return(paste(n, 'is a zero!'))  # If true, return that 'n' is zero
   } else if (n == 1) {  # Check if 'n' is one
     return(paste(n, 'is just a unit!'))  # If true, return that 'n' is a unit
+  }
+  
+  if (n < 0) {  # Handle edge case where 'n' is negative
+    return('Input must be a positive integer greater than 1.')
   }
   
   ints <- 2:(n - 1)  # Create a sequence of integers from 2 to n-1
@@ -42,4 +50,5 @@ is.prime <- function(n) {
   }
 }
 
-is.prime(3)  # Test the function with the input 3
+# Test the function with the input 3
+is.prime(3)  

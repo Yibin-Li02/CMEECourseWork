@@ -1,6 +1,7 @@
 #__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 #__version__ = '0.0.1'
 
+# Function without preallocation
 NoPreallocFun <- function(x) {  
     a <- vector()  # Create an empty vector
     for (i in 1:x) {  # Loop from 1 to x
@@ -10,9 +11,10 @@ NoPreallocFun <- function(x) {
     }
 }
 
-system.time(NoPreallocFun(10))  # Measure and print the time taken for NoPreallocFun
+# Measure and print the time taken for NoPreallocFun
+system.time(NoPreallocFun(10))  
 
-
+# Function with preallocation
 PreallocFun <- function(x) {  
     a <- rep(NA, x)  # Create a vector of length x with NA values (pre-allocated)
     for (i in 1:x) {  # Loop from 1 to x
@@ -22,4 +24,5 @@ PreallocFun <- function(x) {
     }
 }
 
-system.time(PreallocFun(10))  # Measure and print the time taken for PreallocFun
+# Measure and print the time taken for PreallocFun
+system.time(PreallocFun(10))  

@@ -1,12 +1,21 @@
-#__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
-#__version__ = '0.0.1'
+## Author: Yibin.Li (Yibin.Li24@imperial.ac.uk)
+## Version: 0.0.1
 
-i <- 0  # Initialize i to 0
-while (i < Inf) {  # Loop infinitely until a break condition is met
-    if (i == 10) {  # Check if i equals 10
-        break  # Exit the loop if i is 10
-    } else {  # Otherwise, continue in the loop
-        cat("i equals", i, "\n")  # Print the current value of i with formatting
-        i <- i + 1  # Increment i by 1
-    }
+# Initialize the variable 'i' to 0
+i <- 0  
+
+# Start an infinite while loop
+# This loop will continue running until a break condition is met
+while (i < Inf) {
+  # Check if 'i' is equal to 10
+  if (i == 10) {  
+    # Exit the loop if 'i' is equal to 10
+    break
+  } else {
+    # If 'i' is not equal to 10, continue in the loop
+    # Print the current value of 'i' with a formatted output
+    cat("i equals", i, "\n")
+    # Increment 'i' by 1 for the next iteration
+    i <- i + 1
+  }
 }

@@ -1,0 +1,41 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage[a4paper,margin=0.8in]{geometry} 
+\usepackage{float}
+\usepackage{parskip}
+\usepackage{caption}
+
+\titleformat{\title}{\bfseries\Huge}{}{0pt}{}
+
+\title{\textbf{Is Florida Getting Warmer?}}
+\author{Yibin Li}
+\date{December, 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The purpose of the investigation was to determine whether there was a gradual increase in temperatures in Key West, Florida, during the 20th century.
+
+\section{Methods}
+The original data set randomly re-assigned temperatures to years 10,000 times. Through permutation analysis, the distribution of the random correlation coefficients was compared to the observed correlation coefficients. The proportion of random correlation coefficients that exceeded the observed correlation coefficients was calculated to obtain an approximate asymptotic \textit{p}-value.
+
+\section{Results \& Interpretation}
+The histogram (Figure \ref{fig:correlation-histogram}) shows the distribution of the random correlation coefficients. 
+
+\begin{figure}[H] % Force figure to stay here
+    \centering
+    \includegraphics[width=0.9\linewidth]{../results/Florida_Correlation_Histogram.pdf} 
+    \captionsetup{font=footnotesize}
+    \caption{Histogram of random correlation coefficients compared to the observed correlation coefficient. The red dotted line represents the observed correlation coefficient.}
+    \label{fig:correlation-histogram}
+\end{figure}
+
+The observed correlation coefficient was approximately 0.533. The \textit{p}-value was 0, indicating that there were no random correlation coefficients that exceeded the observed correlation coefficient. 
+
+Based on these analyses, we concluded that Key West, Florida, has experienced significant warming over the 20th century.
+
+\end{document}

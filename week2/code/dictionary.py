@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 
 """
-Populate a dictionary.
+A Python script to populate a dictionary from species data.
+
+This script processes a list of species and their respective taxonomic orders, 
+and creates a dictionary that maps each order to a set of species belonging to that order.
+The script demonstrates two methods for populating the dictionary: using conventional loops
+and using list comprehensions.
 """
 
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
@@ -22,6 +27,11 @@ taxa = [ ('Myotis lucifugus','Chiroptera'),
 # Write a python script to populate a dictionary called taxa_dic derived from
 # taxa so that it maps order names to sets of taxa and prints it to screen.
 # 
+# An example output is:
+#  
+# 'Chiroptera' : set(['Myotis lucifugus']) ... etc. 
+# OR, 
+# 'Chiroptera': {'Myotis  lucifugus'} ... etc
 
 #### Solution here #### 
 

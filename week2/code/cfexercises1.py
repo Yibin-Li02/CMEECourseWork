@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-Six mathematical functions showing different conditionals,
-including doctests for each function.
+Mathematical functions demonstrating various programming concepts,
+including iterative and recursive approaches, with detailed docstrings.
 """
 
 __author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
@@ -12,78 +12,95 @@ __version__ = '0.0.1'
 
 import sys
 
-"""
-Finds the square root.
-"""
-
 def foo_1(x):
+    """
+    Calculate the square root of a number.
+
+    Parameters:
+        x (float): The number for which the square root is calculated.
+
+    Returns:
+        float: The square root of x.
+    """
     return x ** 0.5
 
-
-"""
-Returns the largest of two numbers.
-"""
-
 def foo_2(x, y):
-    if x > y:
-        return x
-    return y
+    """
+    Return the larger of two numbers.
 
-"""
-Returns 3 numbers in a different order.
-"""
+    Parameters:
+        x (float): The first number.
+        y (float): The second number.
+
+    Returns:
+        float: The larger of x and y.
+    """
+    return x if x > y else y
 
 def foo_3(x, y, z):
+    """
+    Return three numbers in ascending order.
+
+    Parameters:
+        x (float): The first number.
+        y (float): The second number.
+        z (float): The third number.
+
+    Returns:
+        list: A list of three numbers sorted in ascending order.
+    """
     if x > y:
-        tmp = y
-        y = x
-        x = tmp
+        x, y = y, x
     if y > z:
-        tmp = z
-        z = y
-        y = tmp
+        y, z = z, y
+    if x > y:
+        x, y = y, x
     return [x, y, z]
 
-"""
-Calculates the factorial of x.
-"""
+def factorial(x, method="iterative"):
+    """
+    Calculate the factorial of a number using the specified method.
 
-def foo_4(x):
-    result = 1
-    for i in range(1, x + 1):
-        result = result * i
-    return result
+    Parameters:
+        x (int): The number for which the factorial is calculated.
+                 Must be a non-negative integer.
+        method (str): The method to use: "iterative" or "recursive".
+                      Defaults to "iterative".
 
-"""
-A recursive function that calculates the factorial of x.
-"""
+    Returns:
+        int: The factorial of x.
 
-def foo_5(x): 
-    if x == 1:
-        return 1
-    return x * foo_5(x - 1)
-     
-
-"""
-Calculates the factorial of x, multiplying from x down to 1.
-"""
-
-def foo_6(x):
-    facto = 1
-    while x >= 1:
-        facto = facto * x
-        x = x - 1
-    return facto
+    Raises:
+        ValueError: If x is negative or method is not recognized.
+    """
+    if x < 0:
+        raise ValueError("Factorial is not defined for negative numbers.")
+    
+    if method == "iterative":
+        result = 1
+        for i in range(1, x + 1):
+            result *= i
+        return result
+    
+    elif method == "recursive":
+        if x == 0 or x == 1:
+            return 1
+        return x * factorial(x - 1, method="recursive")
+    
+    else:
+        raise ValueError("Invalid method. Choose 'iterative' or 'recursive'.")
 
 def main(argv):
+    """
+    Demonstrates the functionality of the implemented functions.
+    """
     print(foo_1(16))
     print(foo_2(9, 100))
     print(foo_3(5, 2, 4))
-    print(foo_4(5))
-    print(foo_5(5))
-    print(foo_6(5))
+    print(factorial(5, method="iterative"))
+    print(factorial(5, method="recursive"))
     return 0   
 
-if (__name__ == "__main__"):
+if __name__ == "__main__":
     status = main(sys.argv)
     sys.exit(status)

@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
+
 """
-Prints data from a tuple of tuples in a different way.
+A Python script to print bird data from a tuple of tuples in a formatted manner.
+
+The script iterates through each bird entry and prints the Latin name, common name, and mass 
+of each bird in a structured format, making the information easy to read.
+
+This script is useful for displaying bird data in a readable form.
 """
 
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
@@ -20,8 +26,13 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
 
 #### Solution here #### 
 
-# Iterate over each bird in the tuple and print its information
+# Iterate over each bird in the tuple and print its information in a formatted way
 for latin_name, common_name, mass in birds:
+    # Print the Latin name of the bird
     print(f"Latin Name: {latin_name}")
+    # Print the common name of the bird
     print(f"Common Name: {common_name}")
-    print(f"Mass: {mass}")
+    # Print the mass of the bird in grams
+    print(f"Mass: {mass} g")
+    # Print a separator line for better readability
+    print("-")

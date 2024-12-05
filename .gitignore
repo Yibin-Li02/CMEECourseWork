@@ -1,3 +1,172 @@
-*~ 
-*.log
+###R###
+
+
+# History files
 .Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# User-specific files
+.Ruserdata
+
+# RStudio files
+.Rproj.user/
+.Rproj.user/*
+.Rproj.user/**
+
+# Compiled code
+*.o
+*.so
+*.dll
+
+# Packages
+*.Rproj
+.Rproj
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Temporary files
+*.out
+*.tmp
+
+# R environment
+.Renviron
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# Shiny application logs
+.Rshinylogs/
+
+# Hidden files
+*~
+
+
+###Python###
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pylint
+.pylint.d/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# Pytest
+.pytest_cache/
+
+# AWS credentials
+*.pem
+
+# pyright
+.pyright/
+
+# Other sensitive or temporary files
+*.swp
+*.swo
+*~
+Thumbs.db
+.DS_Store
+
+
+###Linux###
+
+

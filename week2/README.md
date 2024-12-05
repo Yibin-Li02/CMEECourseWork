@@ -1,115 +1,105 @@
-# Week 2 Overview
+# CMEE Coursework: Week 2
 
-*Auther: Yibin.Li*
+*Author: Yibin.Li ([Yibin.Li24\@imperial.ac.uk](mailto:Yibin.Li24@imperial.ac.uk))*
 
-*Date: 18/10/2024*
+*Created: 10/2024*
 
-This directory contains python scripts, data and results for Week 2.
+------------------------------------------------------------------------
 
-## Code:
+## Table of Contents
 
-### Practical script:
+1.  [Introduction](#introduction)
+2.  [Language and Dependency](#language-and-dependency)
+3.  [Description of Code Files](#description-of-code-files)
+4.  [Data](#data)
+5.  [Results](#results)
+6.  [Sandbox](#sandbox)
 
-1.lc1.py
+------------------------------------------------------------------------
 
-Some list comprehensions and for loops to print different attributes of birds.
+## Introduction {#introduction}
 
-2.lc2.py
+This coursework contains several scripts that demonstrate data processing tasks using Python.
 
-Some list comprehensions and loops to identify months with high and low rainfall.
+------------------------------------------------------------------------
 
-3.dictionary.py
+## Language and Dependency {#language-and-dependency}
 
-Populate a dictionary. 
+-   **Python**: The scripts are written in Python.
+-   **Dependency**: To run the Python scripts, a Python 3 environment is required with the following libraries installed:
+    -   `os`, `sys`, `csv`, `argparse`, `pandas` for data manipulation, `matplotlib` for data visualization, etc.
 
-4.tuple.py
+------------------------------------------------------------------------
 
-Prints data from a tuple of tuples in a different way.
+## Description of Code Files {#description-of-code-files}
 
-5.cfexercises1.py
+The `code` directory includes several Python scripts that perform various tasks:
 
-Six mathematical functions.
+-   **align_seqs.py**: Aligns sequences from input files.
 
-6.align_seqs.py 
+-   **align.py**: Performs sequence alignment tasks.
 
-Aligns two DNA sequences such that they are as similar as possible.
+-   **dictionary.py**: Demonstrates dictionary operations in Python.
 
-7.oaks_debugme.py
+-   **lc1.py**: List comprehension exercises part 1.
 
-Finds oak in a given .csv file.
+-   **lc2.py**: List comprehension exercises part 2.
 
+-   **tuple.py**: Demonstrates tuple operations in Python.
 
-### Non Practical scripts:
+-   **MyExampleScript.py**: Example Python script to demonstrate basic operations.
 
-8.debugme.py 
+-   **oaks_debugme.py**: Debugging script for identifying oaks in a dataset.
 
-A .py script containing a practice example for using the debugger.
+-   **boilerplate.py**: Template script containing standard comments and metadata.
 
-9.align.py
+-   **debugme.py**: Script with intentional bugs for debugging practice.
 
-Assign two sequences and find the best align score.
+-   **basic_io1.py**: Demonstrates basic input/output operations in Python.
 
-10.basic_csv.py
+-   **loops.py**: Demonstrates the use of loops in Python.
 
-the script reads a csv and then prints it as a list.
+-   **cfexercises1.py**: Control flow exercises part 1.
 
-11.basic_io1.py
+-   **cfexercises2.py**: Control flow exercises part 2.
 
-A .py script that printing test.txt content.
+-   **oaks.py**: Identifies oaks from a given dataset.
 
-12.basic_io2.py
+-   **basic_io2.py**: Further input/output operations in Python.
 
-Save the elements of a list to a file.
+-   **basic_io3.py**: Additional input/output operations.
 
-13.basic_io3.py
+-   **basic_csv.py**: Demonstrates reading and writing CSV files in Python.
 
-Save an object (even complex) for later use.
+-   **using_name.py**: Demonstrates the use of `__name__ == "__main__"` in Python.
 
-14.boilerplate.py
+-   **sysarge.py**: Demonstrates the use of command-line arguments.
 
-A .py boilerplate for a basic programme, containing docstrings, imports, arguments, functions and an if statement.
+-   **control_flow.py**: Demonstrates control flow structures in Python.
 
-15.cfexercises2.py
+-   **Scope.py**: Demonstrates variable scope in Python.
 
-A .py script that printing the string 'hello' each time when a condition is met.
+------------------------------------------------------------------------
 
-16.control_flow.py
+## Data {#data}
 
-Some functions exemplifying the use of control statements.
+The `data` directory contains the following files:
 
-17.loops.py
+-   **testcsv.csv**: A CSV file containing test data used for practicing reading and writing CSV files.
+-   **TestOaksData.csv**: A CSV file containing data about different tree species, used to identify oak trees.
+-   **bodymass.csv**: A CSV file containing body mass data for different organisms, used for data analysis exercises.
+-   **sequences.csv**: A CSV file containing biological sequences, used for sequence alignment tasks.
 
-A .py script to practice various for and while loops.
+------------------------------------------------------------------------
 
-18.MyExampleScript.py
+## Results {#results}
 
-This is a example .py script.
+The `results` directory contains the outputs generated by the scripts after processing the data.
 
-19.oaks.py
+The `results` is now empty.
 
-Finds just those taxa that are oak trees from a list of species.
+------------------------------------------------------------------------
 
-20.sysarge.py
+## Sandbox {#sandbox}
 
-A short .py script illustating how sys.argv works when run with different variables.
-
-21.using_name.py
-
-A .py script illustrating the difference between importing a module and running it as the main programme.
-
-
-## data
-
-sequences.csv used for Practical 3, which has 2 sequences.
-
-TestOaksData.csv used for Practical 4, which has different species and genus.
-
-
-## results
-
-results is where the outpout from those scripts is sent to.
-
-
-## sandbox
-
-Just test files.
+The `sandbox` directory contains test files.

@@ -8,14 +8,14 @@ Another function that prints 'FOUND AN OAK!' when an oak is found in all taxas a
 """
 
 __author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
-__version__ = '0.0.1'
+__version__ = '0.0.3'
 
 import csv
 import sys
 import difflib
 import doctest
+import os
 
-# Define function
 def is_an_oak(name):
     """
     Returns True if the genus name starts with 'quercus'.
@@ -33,13 +33,22 @@ def is_an_oak(name):
     >>> is_an_oak('Fagus sylvatica')
     False
     >>> is_an_oak('Quercuss robur')
-    TRUE
+    True
     >>> is_an_oak('Querc robur') 
     False
     >>> is_an_oak('Quercuspetraea')
     False
+    >>> is_an_oak('')
+    False
+    >>> is_an_oak('    ')
+    False
+    >>> is_an_oak('Quercus123')
+    False
+    >>> is_an_oak('Que rcus robur') 
+    False
+    >>> is_an_oak('Quércus robur') 
+    False
     """
-
     genus = name.split()[0].lower()  # Extract the genus name (first word)
     # Handle minor typos in genus name
     return difflib.get_close_matches(genus, ['quercus'], cutoff=0.8) != []
@@ -48,31 +57,43 @@ def main(argv):
     """
     Finds oaks and saves the results into a new csv file.
     """
-    input_file = open('../data/TestOaksData.csv','r')
-    output_file = open('../results/OaksData.csv','w')
-    taxa = csv.reader(input_file)
-    csvwrite = csv.writer(output_file)
+    input_file_path = '../data/TestOaksData.csv'
+    output_file_path = '../results/OaksData.csv'
 
-    # Skip the header row in the input file
-    header = next(taxa)
+    # Check if input file exists
+    if not os.path.exists(input_file_path):
+        print(f"Error: The input file '{input_file_path}' does not exist.")
+        sys.exit(1)
 
-    # Write header to the output file
-    csvwrite.writerow(['Genus', 'Species'])
+    try:
+        with open(input_file_path, 'r') as input_file, open(output_file_path, 'w') as output_file:
+            taxa = csv.reader(input_file)
+            csvwrite = csv.writer(output_file)
 
-    oaks = set()
-    for row in taxa:
-        print(row)
-        print ("The genus is: ") 
-        print(row[0] + '\n')
+            # Skip the header row in the input file
+            header = next(taxa)
 
-        # adds oaks to csv file
-        if is_an_oak(row[0]):
-            print('FOUND AN OAK!\n')
-            csvwrite.writerow([row[0], row[1]])
-    input_file.close()
-    output_file.close() 
+            # Write header to the output file
+            csvwrite.writerow(['Genus', 'Species'])
 
-    return 0
+            for row in taxa:
+                if len(row) < 2:
+                    print(f"Warning: Incomplete data row: {row}")
+                    continue
+                
+                print(row)
+                print("The genus is: ")
+                print(row[0] + '\n')
+
+                # Adds oaks to csv file
+                if is_an_oak(row[0]):
+                    print('FOUND AN OAK!\n')
+                    csvwrite.writerow([row[0], row[1]])
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        sys.exit(1)
+
+    sys.exit(0)
   
 if __name__ == "__main__":
     """
@@ -80,4 +101,5 @@ if __name__ == "__main__":
     """
     import doctest
     doctest.testmod()
-    status = main(sys.argv)
+    main(sys.argv)
+

@@ -1,7 +1,10 @@
-#__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
-#__version__ = '0.0.1'
+## Author: Yibin.Li (Yibin.Li24@imperial.ac.uk)
+## Version: 0.0.1
 
-# If statements
+# Control Flow Examples in R
+
+# If statements: Demonstrates conditional branching based on the value of a variable
+# This structure allows for different actions depending on whether a condition is TRUE or FALSE
 a <- TRUE  # Assigning the logical value TRUE to 'a'
 if (a == TRUE) {  # Checking if 'a' is TRUE
     print("a is TRUE")  # Prints this if 'a' is TRUE
@@ -9,15 +12,25 @@ if (a == TRUE) {  # Checking if 'a' is TRUE
     print("a is FALSE")  # Prints this if 'a' is FALSE
 }
 
+# If statement with random value: Demonstrates a conditional check on a randomly generated value
+# This control structure is useful for probabilistic decisions or branching
 z <- runif(1)  # Generate a random number between 0 and 1
 if (z <= 0.5) {  # Checks if 'z' is less than or equal to 0.5
     print("Less than a half")  # Prints this if the condition is met
 }
 
-# For loops
-for (i in 1:10) {  # Loop over numbers from 1 to 10
-    j <- i * i  # Square the current value of 'i'
-    print(paste(i, "squared is", j))  # Print the result with a message
+# For loop: Demonstrates iteration over a sequence
+# This structure is used for repetitive tasks, such as processing each element in a sequence
+for (i in 1:10) {  # Loop from 1 to 10
+    print(paste("i is", i))  # Print the current value of 'i'
+}
+
+# While loop: Demonstrates repeating an action until a condition is no longer met
+# Useful when the number of iterations is not known in advance
+i <- 0  # Initialize 'i' to 0
+while (i < 10) {  # Continue looping while 'i' is less than 10
+    print(paste("i is", i))  # Print the current value of 'i'
+    i <- i + 1  # Increment 'i' by 1
 }
 
 1:10  # This simply generates a sequence of numbers from 1 to 10

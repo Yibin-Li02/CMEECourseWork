@@ -3,13 +3,13 @@
 
 ######### Functions ##########
 
-## A function to take a sample of size n from a population "popn" and return its mean
+# A function to take a sample of size n from a population "popn" and return its mean
 myexperiment <- function(popn,n) {
     pop_sample <- sample(popn, n, replace = FALSE)
     return(mean(pop_sample))
 }
 
-## Calculate means using a FOR loop on a vector without preallocation:
+# Calculate means using a FOR loop on a vector without preallocation:
 loopy_sample1 <- function(popn, n, num) {
     result1 <- vector() #Initialize empty vector of size 1 
     for(i in 1:num) {
@@ -18,7 +18,7 @@ loopy_sample1 <- function(popn, n, num) {
     return(result1)
 }
 
-## To run "num" iterations of the experiment using a FOR loop on a vector with preallocation:
+# To run "num" iterations of the experiment using a FOR loop on a vector with preallocation:
 loopy_sample2 <- function(popn, n, num) {
     result2 <- vector(,num) #Preallocate expected size
     for(i in 1:num) {
@@ -27,7 +27,7 @@ loopy_sample2 <- function(popn, n, num) {
     return(result2)
 }
 
-## To run "num" iterations of the experiment using a FOR loop on a list with preallocation:
+# To run "num" iterations of the experiment using a FOR loop on a list with preallocation:
 loopy_sample3 <- function(popn, n, num) {
     result3 <- vector("list", num) #Preallocate expected size
     for(i in 1:num) {
@@ -36,26 +36,32 @@ loopy_sample3 <- function(popn, n, num) {
     return(result3)
 }
 
-
-## To run "num" iterations of the experiment using vectorization with lapply:
+# To run "num" iterations of the experiment using vectorization with lapply:
 lapply_sample <- function(popn, n, num) {
     result4 <- lapply(1:num, function(i) myexperiment(popn, n))
     return(result4)
 }
 
-## To run "num" iterations of the experiment using vectorization with sapply:
+# To run "num" iterations of the experiment using vectorization with sapply:
 sapply_sample <- function(popn, n, num) {
     result5 <- sapply(1:num, function(i) myexperiment(popn, n))
     return(result5)
 }
 
+# Set seed for reproducibility
 set.seed(12345)
-popn <- rnorm(10000) # Generate the population
-hist(popn)
 
-n <- 100 # sample size for each experiment
-num <- 10000 # Number of times to rerun the experiment
+# Generate the population
+popn <- rnorm(10000)
 
+# Plot histogram of the population
+ihist(popn)
+
+# Parameters for the experiment
+n <- 100  # Sample size for each experiment
+num <- 10000  # Number of times to rerun the experiment
+
+# Measure and print the time taken for each method
 print("Using loops without preallocation on a vector took:" )
 print(system.time(loopy_sample1(popn, n, num)))
 

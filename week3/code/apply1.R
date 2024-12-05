@@ -1,17 +1,20 @@
-#__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
-#__version__ = '0.0.1'
+## Author: Yibin.Li (Yibin.Li24@imperial.ac.uk)
+## Version: 0.0.1
 
-## Build a random matrix
+# Create a random 10x10 matrix with values generated from a normal distribution
 M <- matrix(rnorm(100), 10, 10)
 
-## Take the mean of each row
+# Calculate the mean of each row using the apply function
+# The '1' indicates that the function is applied by rows
 RowMeans <- apply(M, 1, mean)
-print (RowMeans)
+print(RowMeans)  # Print the row means
 
-## Now the variance
+# Calculate the variance of each row using the apply function
+# Again, '1' indicates that the function is applied by rows
 RowVars <- apply(M, 1, var)
-print (RowVars)
+print(RowVars)  # Print the row variances
 
-## By column
+# Calculate the mean of each column using the apply function
+# The '2' indicates that the function is applied by columns
 ColMeans <- apply(M, 2, mean)
-print (ColMeans)
+print(ColMeans)  # Print the column means

@@ -1,28 +1,32 @@
 # Navigate to the work directory
 
+# This command moves to the specified working directory where the data files are located.
+
 cd ~/Documents/CMEECourseWork-Yibin.Li/week1/data 
 
-#1 Count how many lines there are in each file
+# 1. Count how many lines there are in each file
+# This command counts the number of lines in each of the .fasta files and prints the filename along with the line count.
 
 echo "407228326.fasta: "; (cat 407228326.fasta; echo) | wc -l; echo "407228412.fasta: "; (cat 407228412.fasta; echo) | wc -l; echo "E.coli.fasta: "; (cat E.coli.fasta; echo) | wc -l
 
-
-#2 Print everything starting from the second line for the E. coli genome
+# 2. Print everything starting from the second line for the E. coli genome
+# This command prints all lines from the second line onwards for the specified file, excluding the header line (often containing metadata).
 
 tail -n +2 E.coli.fasta
 
-
-#3 Count the sequence length of this genome
+# 3. Count the sequence length of each genome
+# This command iterates over all .fasta files, removes the header line, joins all lines into one (removing newlines), and counts the total number of characters (nucleotides).
 
 for file in *.fasta; do length=$(tail -n +2 "$file" | tr -d "\n" | wc -c); echo "$file: Sequence Length = $length"; done
 
+# 4. Count the matches of a particular sequence, "ATGC", in the genome of E. coli
+# This command removes the header line, concatenates the sequence into a single line, and counts the occurrences of "ATGC" in the sequence.
 
-#4 Count the matches of a particular sequence, “ATGC” in the genome of E. coli
- 
 grep -v ">" E.coli.fasta | tr -d '\n' | grep -o "ATGC" | wc -l 
 
-
-#5 Compute the AT/GC ratio
+# 5. Compute the AT/GC ratio
+# This command calculates the AT to GC ratio for each .fasta file by counting the occurrences of A, T, G, and C bases.
+# It ignores header lines, removes newlines, and then computes the ratio of total A and T to total G and C bases.
 
 for file in *.fasta; do a=$(grep -v "^>" "$file" | tr -d "\n" | grep -o "A" | wc -l); t=$(grep -v "^>" "$file" | tr -d "\n" | grep -o "T" | wc -l); g=$(grep -v "^>" "$file" | tr -d "\n" | grep -o "G" | wc -l); c=$(grep -v "^>" "$file" | tr -d "\n" | grep -o "C" | wc -l); total_at=$((a + t)); total_gc=$((g + c)); ratio=$( [ $total_gc -ne 0 ] && echo "scale=4; $total_at / $total_gc" | bc || echo "undefined" ); echo "$file: AT/GC Ratio = $ratio"; done
 
