@@ -6,11 +6,9 @@
 
 This repository contains different kinds of scripts, data, and notes organized into multiple weekly folders for CMEE course or other projects.
 
-
-
 ## Table of Contents
 
--   [Week 1: UNIX and Linux](#week-1)
+-   [Week 1: UNIX and Linux](#Week%201:%20UNIX%20and%20Linux)
 
 -   [Week 2: Python](#week-2)
 
@@ -30,15 +28,11 @@ This repository contains different kinds of scripts, data, and notes organized i
 
 -   [Week 10: Bioinformatics and genomics](#week-10)
 
-
-
 ## Requirements
 
 -   **Bash**: For executing shell scripts.
 -   **Python 3**: Required for running Python scripts in Week 2.
 -   **R**: Required for executing R scripts in Weeks 3, 4, 5, 6, 8, 9and 10.
-
-
 
 ### Week 1: UNIX and Linux {#week-1}
 
