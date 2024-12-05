@@ -8,25 +8,27 @@ This repository contains different kinds of scripts, data, and notes organized i
 
 ## Table of Contents
 
--   [Week 1: UNIX and Linux](#Week 1: UNIX and Linux)
+## Table of Contents
 
--   [Week 2: Python](#week-2)
+-   [Week 1: UNIX and Linux](#week-1-unix-and-linux)
 
--   [Week 3: R](#week-3)
+-   [Week 2: Python](#week-2-python)
 
--   [Week 4: Bootcamp submission](#week-4)
+-   [Week 3: R](#week-3-r)
 
--   [Week 5: Statistics in R](#week-5)
+-   [Week 4: Bootcamp submission](#week-4-bootcamp-submission)
 
--   [Week 6: General linear models](#week-6)
+-   [Week 5: Statistics in R](#week-5-statistics-in-r)
 
--   [Week 7: Submission](#week-7)
+-   [Week 6: General linear models](#week-6-general-linear-models)
 
--   [Week 8: High-Performance Computing](#week-8)
+-   [Week 7: Submission](#week-7-submission)
 
--   [Week 9: Mapping and data visualisation](#week-9)
+-   [Week 8: High-Performance Computing](#week-8-high-performance-computing)
 
--   [Week 10: Bioinformatics and genomics](#week-10)
+-   [Week 9: Mapping and data visualisation](#week-9-mapping-and-data-visualisation)
+
+-   [Week 10: Bioinformatics and genomics](#week-10-bioinformatics-and-genomics)
 
 ## Requirements
 
