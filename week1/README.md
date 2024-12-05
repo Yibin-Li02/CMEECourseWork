@@ -3,7 +3,7 @@
 *Author: Yibin.Li ([Yibin.Li24\@imperial.ac.uk](mailto:Yibin.Li24@imperial.ac.uk){.email})*\
 *Created: 10/2024*
 
-------------------------------------------------------------------------
+
 
 ## Table of Contents
 
@@ -14,13 +14,13 @@
 5.  [Results](#results)
 6.  [Sandbox](#sandbox)
 
-------------------------------------------------------------------------
+
 
 ## Introduction {#introduction}
 
 This coursework contains several scripts and data files that demonstrate various Unix command-line operations and data processing tasks.       
 
-------------------------------------------------------------------------
+
 
 ## Language and Dependency {#language-and-dependency}
 
@@ -29,7 +29,7 @@ This coursework contains several scripts and data files that demonstrate various
     -   Bash (version 4 or higher)
     -   Core Unix utilities such as `awk`, `sed`, `grep`, `cut`, etc.
 
-------------------------------------------------------------------------
+
 
 ## Description of Code Files {#description-of-code-files}
 
