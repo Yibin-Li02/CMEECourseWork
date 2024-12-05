@@ -21,7 +21,7 @@
 
 
 
-## Introduction {#introduction}
+## Introduction
 
 This coursework contains several R scripts and data files that demonstrate various data analysis and visualization tasks.
 
@@ -35,7 +35,7 @@ pdflatex -output-directory=../results Florida.tex
 
 
 
-## Language and Dependency {#language-and-dependency}
+## Language and Dependency
 
 -   **R**: The scripts are written in the R programming language.
 -   **Dependency**: To run the R scripts, an R environment (version 4.0 or higher) is required with the following packages installed:
