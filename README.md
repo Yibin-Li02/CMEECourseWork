@@ -36,41 +36,41 @@ This repository contains different kinds of scripts, data, and notes organized i
 -   **R**: Required for executing R scripts in Weeks 3, 4, 5, 6, 8, 9and 10.
 
 
-### Week 1: UNIX and Linux
+## Week 1: UNIX and Linux
 -   Learning basic Unix commands and shell scripting.
 
-### Week 2: Python
+## Week 2: Python
 
 -   Learning Python fundamentals, including control flow, input/output operations, and debugging.
 
-### Week 3: R
+## Week 3: R
 
 -   Using R for statistical analysis and data visualization.
 
-### Week 4: Bootcamp submission
+## Week 4: Bootcamp submission
 
 -   Uploading the final Bootcamp Assessment.
 
-### Week 5: Statistics in R
+## Week 5: Statistics in R
 
 -   Using R to solve the basic statistics.
 
-### Week 6: General linear models
+## Week 6: General linear models
 
 -   Using R to build linear models.
 
-### Week 7: Submission
+## Week 7: Submission
 
 -   Submitting the statistics assessment.
 
-### Week 8: High-Performance Computing
+## Week 8: High-Performance Computing
 
 -   Advanced analysis in R, including demographic and clustering methods.
 
-### Week 9: Mapping and data visualisation
+## Week 9: Mapping and data visualisation
 
 -   Introducing to core GIS concepts and then uses those to explore a common GIS use case in ecology.
 
-### Week 10: Bioinformatics and genomics
+## Week 10: Bioinformatics and genomics
 
 -   Introducing genomes, genomics and bioinformatic analysis.
