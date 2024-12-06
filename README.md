@@ -6,7 +6,6 @@
 
 This repository contains different kinds of scripts, data, and notes organized into multiple weekly folders for CMEE course or other projects.
 
-## Table of Contents
 
 ## Table of Contents
 
