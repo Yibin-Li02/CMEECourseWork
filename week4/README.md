@@ -27,7 +27,7 @@ This coursework contains several R scripts and data files that demonstrate vario
 
 In order to keep the `results` empty, put the **Florida.pdf** to the `code` directory.
 
-When running the **Florida.tex**, use the following command to specify the output location of the result file:
+When running the **Florida.tex**, first running the **Florida.R**, then use the following command to specify the output location of the result file:
 
 ``` bash
 pdflatex -output-directory=../results Florida.tex
