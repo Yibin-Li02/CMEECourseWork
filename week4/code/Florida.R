@@ -13,15 +13,7 @@ print(ls())           # List the loaded objects
 print(head(ats))      # Preview the data
 print(class(ats))     # Confirm the class
 
-# Plot temperatures over time on line graph
-pdf("../results/Temperature.pdf")
-plot(ats$Year, 
-     ats$Temp, 
-     xlab = "Year",
-     ylab = "Temperature (°C)",
-     type = "l",
-     main = "Annual Mean Temperature in Key West, Florida (1901-2000)")
-dev.off()
+
 # Calculate the observed correlation coefficient
 obs_corr <- cor(ats$Year, ats$Temp)
 cat("Observed correlation coefficient:", obs_corr, "\n")
