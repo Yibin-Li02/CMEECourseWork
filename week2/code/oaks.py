@@ -14,6 +14,7 @@ This script is useful for demonstrating how to filter specific taxa from a list 
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 # List of taxa containing different species names
 taxa = [
     'Quercus robur',
@@ -24,6 +25,7 @@ taxa = [
 ]
 
 def is_an_oak(name):
+
     """
     Determine if a given species is an oak tree.
 
@@ -33,6 +35,7 @@ def is_an_oak(name):
     Returns:
     bool: True if the species name starts with 'quercus', indicating it is an oak tree; False otherwise.
     """
+    
     return name.lower().startswith('quercus ')
 
 # Using for loops to filter oak trees

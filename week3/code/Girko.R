@@ -1,34 +1,33 @@
 #__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 #__version__ = '0.0.1'
 
+
 # Load the ggplot2 package for plotting
 require(ggplot2)
 
 # Function to create an ellipse with specified horizontal and vertical radii
 # hradius: horizontal radius of the ellipse
 # vradius: vertical radius of the ellipse
-build_ellipse <- function(hradius, vradius){ # function that returns an ellipse
+build_ellipse <- function(hradius, vradius){
   npoints = 250
   a <- seq(0, 2 * pi, length = npoints + 1)
   x <- hradius * cos(a)
-  y <- vradius * sin(a)  
+  y <- vradius * sin(a)
   return(data.frame(x = x, y = y))
 }
 
 # Assign size of the matrix
-N <- 250 
+N <- 250
 
 # Create an NxN matrix with random values from a normal distribution
 M <- matrix(rnorm(N * N), N, N) # Build the matrix
 
 # Calculate the eigenvalues of the matrix
-# Eigenvalues can give insights into the properties of the matrix
-# For instance, they are used in stability analysis and various other applications
 eigvals <- eigen(M)$values # Find the eigenvalues
 
 # Create a data frame containing the real and imaginary parts of the eigenvalues
 # This will be used for visualization
-eigDF <- data.frame("Real" = Re(eigvals), "Imaginary" = Im(eigvals)) # Build a dataframe
+eigDF <- data.frame("Real" = Re(eigvals), "Imaginary" = Im(eigvals))
 
 # Calculate the radius of the ellipse, which is the square root of the matrix size (sqrt(N))
 my_radius <- sqrt(N)
@@ -51,5 +50,9 @@ p <- p + geom_vline(aes(xintercept = 0))
 
 # Add the ellipse representing the boundary within which most eigenvalues should lie
 # The ellipse is filled with a transparent red color
-p <- p + geom_polygon(data = ellDF, aes(x = Real, y = Imaginary, alpha = 1/20, fill = "red"))
+p <- p + geom_polygon(data = ellDF,
+                      aes(x = Real,
+                          y = Imaginary,
+                          alpha = 1/20,
+                          fill = "red"))
 p

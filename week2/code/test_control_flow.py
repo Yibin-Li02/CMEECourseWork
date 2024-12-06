@@ -9,6 +9,7 @@ It includes a function to determine if a number is even or odd and runs a few ex
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 import sys
 import doctest # Import the doctest module
 
@@ -28,6 +29,7 @@ def even_or_odd(x=0):
     '-2 is Even!'
     
     """
+
     #Define function to be tested
     if x % 2 == 0:
         return f"{x} is Even!"
@@ -39,6 +41,7 @@ def main(argv):
     Execute the main functionality of the script.
    
     """ 
+    
     print(even_or_odd(22))
     print(even_or_odd(33))
     return 0

@@ -13,20 +13,17 @@ This script is useful for demonstrating debugging techniques and identifying com
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 # Function with a potential bug
 def buggyfunc(x):
+
     """
     A function that performs arithmetic operations in a loop, which may contain a bug.
 
-    Args:
-    x (int): The starting value for the loop and arithmetic operations.
-
     Returns:
     float: The result of the division operation.
-
-    Raises:
-    ZeroDivisionError: If the value of y becomes zero during the loop, causing division by zero.
     """
+    
     y = x
     for i in range(x):
         y = y - 1  # Decrement y by 1

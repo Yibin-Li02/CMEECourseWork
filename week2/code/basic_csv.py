@@ -13,37 +13,30 @@ This script is useful for demonstrating basic CSV operations in Python, includin
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
+# imports
 import csv
 
-# Read a CSV file containing species information
-with open('../data/testcsv.csv', 'r') as f:
-    """
-    Reads the input CSV file and prints each row, along with the species name.
-    
-    Args:
-    f (file object): The CSV file to be read, containing columns like 'Species', 'Infraorder', 'Family', 'Distribution', and 'Body mass male (Kg)'.
-    """
+import csv
+
+# Read a file containing:
+# 'Species','Infraorder','Family','Distribution','Body mass male (Kg)'
+with open('../data/testcsv.csv','r') as f:
+
     csvread = csv.reader(f)
     temp = []
     for row in csvread:
         temp.append(tuple(row))
-        # Print each row and the species name from the first column
         print(row)
         print("The species is", row[0])
 
-# Write a CSV file containing only species name and body mass
-with open('../data/testcsv.csv', 'r') as f:
-    """
-    Reads the input CSV file and writes a new CSV file containing only the species name and body mass.
-    
-    Args:
-    f (file object): The CSV file to be read, containing columns like 'Species' and 'Body mass male (Kg)'.
-    g (file object): The new CSV file to be written, containing only 'Species' and 'Body mass'.
-    """
-    with open('../data/bodymass.csv', 'w') as g:
+# write a file containing only species name and Body mass
+with open('../data/testcsv.csv','r') as f:
+    with open('../data/bodymass.csv','w') as g:
+
         csvread = csv.reader(f)
         csvwrite = csv.writer(g)
         for row in csvread:
-            # Write the species name and body mass to the new CSV file
             print(row)
             csvwrite.writerow([row[0], row[4]])
+

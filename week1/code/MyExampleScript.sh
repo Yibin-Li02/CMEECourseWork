@@ -4,6 +4,7 @@
 # Description: MyExampleScript
 # Date: Oct 2024
 
+
 # Check if the USER environment variable is set
 if [ -z "$USER" ];
 then

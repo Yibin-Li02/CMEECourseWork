@@ -10,6 +10,7 @@ Another function that prints 'FOUND AN OAK!' when an oak is found in all taxas a
 __author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 __version__ = '0.0.3'
 
+
 import csv
 import sys
 import difflib
@@ -17,6 +18,7 @@ import doctest
 import os
 
 def is_an_oak(name):
+
     """
     Returns True if the genus name starts with 'quercus'.
     
@@ -49,14 +51,17 @@ def is_an_oak(name):
     >>> is_an_oak('Quércus robur') 
     False
     """
+
     genus = name.split()[0].lower()  # Extract the genus name (first word)
     # Handle minor typos in genus name
     return difflib.get_close_matches(genus, ['quercus'], cutoff=0.8) != []
 
 def main(argv):
+
     """
     Finds oaks and saves the results into a new csv file.
     """
+
     input_file_path = '../data/TestOaksData.csv'
     output_file_path = '../results/OaksData.csv'
 
@@ -96,9 +101,11 @@ def main(argv):
     sys.exit(0)
   
 if __name__ == "__main__":
+
     """
     Makes sure the "main" function is called from the command line
     """
+    
     import doctest
     doctest.testmod()
     main(sys.argv)

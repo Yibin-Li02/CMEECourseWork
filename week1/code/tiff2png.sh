@@ -4,6 +4,7 @@
 # Description: Convert tiff to png
 # Date: Oct 2024
 
+
 # Check if ImageMagick is installed
 if ! command -v convert &> /dev/null; then
     echo "Error: ImageMagick is not installed. Please install it to proceed."

@@ -14,6 +14,7 @@ This script is useful for understanding how sequence alignment scoring works in 
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 # Two example sequences to match
 seq2 = "ATCGCCGGATTACGGG"
 seq1 = "CAATTCGGAT"
@@ -31,6 +32,7 @@ else:
     l1, l2 = l2, l1  # swap the two lengths
 
 def calculate_score(s1, s2, l1, l2, startpoint):
+
     """
     Computes the alignment score by returning the number of matches starting from a given start point.
     
@@ -44,6 +46,7 @@ def calculate_score(s1, s2, l1, l2, startpoint):
     Returns:
     int: The score of the alignment.
     """
+ 
     matched = ""  # Holds the string displaying alignments
     score = 0
     for i in range(l2):

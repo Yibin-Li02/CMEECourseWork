@@ -4,6 +4,7 @@
 # Description: Converts all CSV files in a directory to space-separated values files
 # Date: Oct 2024
 
+
 # Set the target and output directories (replace with your intended paths)
 target_dir=~/Documents/CMEECourseWork-Yibin.Li/wseek1/data
 result_dir=~/Documents/CMEECourseWork-Yibin.Li/week1/results

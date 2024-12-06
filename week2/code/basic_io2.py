@@ -13,6 +13,7 @@ This script is useful for understanding basic file writing operations in Python,
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 # FILE OUTPUT SECTION
 
 # Save the elements of a list to a file
@@ -20,13 +21,11 @@ list_to_save = range(100)  # Create a range object containing numbers from 0 to 
 
 # Open a file for writing
 f = open('../sandbox/testout.txt', 'w')
+
 """
 Writes each element of the list to a file, with each element on a new line.
-
-Args:
-    f (file object): The text file to write the list elements.
-    list_to_save (iterable): The list of elements to be written to the file.
 """
+
 for i in list_to_save:
     f.write(str(i) + '\n')  # Write each element to the file and add a newline
 

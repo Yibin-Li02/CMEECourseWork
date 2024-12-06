@@ -5,12 +5,15 @@ A Python script that reads two DNA sequences from a CSV file.
 
 Calculates the best alignment, and saves the results (best alignment and score) to a file.
 
-The script has several functions, including reading sequences from a CSV file, calculating the alignment score, and finding the best alignment.
+The script has several functions, including reading sequences from a CSV file, 
+calculating the alignment score, and finding the best alignment.
+
 If no input files are given, the default files are used.
 """
 
 __author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 __version__ = '0.0.1'
+
 
 # Imports
 import csv
@@ -23,6 +26,7 @@ output_file_path = '../results/Best_alignment.txt'  # Output file path
 
 # Read sequences from CSV file
 def read_sequences_from_csv(file_path):
+
     """
     Reads DNA sequences from a given CSV file.
     
@@ -35,6 +39,7 @@ def read_sequences_from_csv(file_path):
     Raises:
     FileNotFoundError: If the file does not exist.
     """
+
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"The file '{file_path}' does not exist.")
     
@@ -49,10 +54,12 @@ def read_sequences_from_csv(file_path):
 
 # A function that computes a score by returning the number of matches
 def calculate_score(s1, s2, l1, l2, startpoint):
+
     """
     Calculate the result score of two sequences aligment.
     The score is determined by the matching base pairs.
     """
+
     matched = ""
     score = 0
 
@@ -68,10 +75,12 @@ def calculate_score(s1, s2, l1, l2, startpoint):
 
 # Function to find the best alignment
 def find_best_alignment(s1, s2):
+
     """
     Reading sequences from a CSV file and ensuring that there are at least two sequences to proceed.
     If the condition is true, which means less than two sequences, a message is printed and exists the function.
     """
+
     l1 = len(s1)
     l2 = len(s2)
     best_align = None
@@ -87,6 +96,7 @@ def find_best_alignment(s1, s2):
 
 # Function to write alignment results to a file
 def write_alignment_to_file(output_path, s1, best_align, best_score):
+
     """
     Writes the best alignment result to a file.
     
@@ -96,6 +106,7 @@ def write_alignment_to_file(output_path, s1, best_align, best_score):
     best_align (str): The best alignment string.
     best_score (int): The best score of the alignment.
     """
+
     output_lines = [
         "The Best Alignment",
         s1,
@@ -109,12 +120,14 @@ def write_alignment_to_file(output_path, s1, best_align, best_score):
 
 # Main function to execute the alignment logic
 def main():
+
     """
     Main function to read sequences, find the best alignment, and write the results to a file.
     
     Raises:
     Exception: If any error occurs during reading or processing sequences.
     """
+    
     try:
         sequences = read_sequences_from_csv(input_file_path)
         seq1, seq2 = sequences[0], sequences[1]

@@ -4,6 +4,7 @@
 # Description: Demonstrates the use of variables, including special variables, user input, and arithmetic operations.
 # Date: Oct 2024
 
+
 # Special variables
 # $# - Number of arguments passed to the script
 # $0 - The name of the script

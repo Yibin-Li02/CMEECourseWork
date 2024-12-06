@@ -14,6 +14,7 @@ allowing complex data to be serialized and deserialized for later use.
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 import pickle
 
 # STORING OBJECTS SECTION
@@ -23,13 +24,11 @@ my_dictionary = {"a key": 10, "another key": 11}
 
 # Open a file for writing in binary mode
 f = open('../sandbox/testp.p', 'wb')
+
 """
 Saves the dictionary object to a file using pickle.
-
-Args:
-    f (file object): The file to write the serialized object.
-    my_dictionary (dict): The dictionary object to be serialized.
 """
+
 # Use pickle to serialize the dictionary object and save it to the file
 pickle.dump(my_dictionary, f)
 
@@ -40,15 +39,11 @@ f.close()
 
 # Open the file for reading in binary mode
 f = open('../sandbox/testp.p', 'rb')
+
 """
 Loads the dictionary object from a file using pickle.
-
-Args:
-    f (file object): The file to read the serialized object.
-
-Returns:
-    another_dictionary (dict): The deserialized dictionary object.
 """
+
 # Use pickle to load the dictionary object from the file
 another_dictionary = pickle.load(f)
 

@@ -13,6 +13,7 @@ This script is useful for displaying bird data in a readable form.
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),
           ('Junco phaeonotus','Yellow-eyed junco',19.5),
@@ -28,11 +29,27 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
 
 # Iterate over each bird in the tuple and print its information in a formatted way
 for latin_name, common_name, mass in birds:
-    # Print the Latin name of the bird
+
+    """
+    Print the Latin name of the bird
+    """
+
     print(f"Latin Name: {latin_name}")
-    # Print the common name of the bird
+
+    """
+    Print the common name of the bird
+    """
+
     print(f"Common Name: {common_name}")
-    # Print the mass of the bird in grams
+
+    """
+    Print the mass of the bird in grams
+    """
+
     print(f"Mass: {mass} g")
-    # Print a separator line for better readability
+
+    """
+    Print a separator line for better readability
+    """
+
     print("-")

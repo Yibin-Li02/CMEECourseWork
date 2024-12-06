@@ -4,6 +4,7 @@
 # Description: Concatenate the contents of two files
 # Date: Oct 2024
 
+
 # Check if exactly three arguments are provided
 if [ $# -ne 3 ]; then
     echo "Error: Please provide exactly two input files and one output file."

@@ -4,6 +4,7 @@
 # Description: Count lines in a file
 # Date: Oct 2024
 
+
 # Check if a filename was provided
 if [ -z "$1" ];
 then

@@ -1,6 +1,7 @@
 #__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 #__version__ = '0.0.1'
 
+
 # Clear the workspace
 rm(list = ls())
 
@@ -13,14 +14,18 @@ MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
 
 # Convert masses from mg to g
 MyDF <- MyDF %>%
-    mutate(Prey.mass = ifelse(Prey.mass.unit == "mg", Prey.mass / 1000, Prey.mass),
-        Prey.mass.unit = "g")
+  mutate(Prey.mass = ifelse
+         (Prey.mass.unit == "mg",
+          Prey.mass / 1000, Prey.mass),
+         Prey.mass.unit = "g")
 
 # Create PDF to save the plot
 pdf("../results/PP_Regress.pdf", width = 9, height = 12)
 
 # Plot predator and prey mass by feeding type and predator lifestage
-p <- ggplot(MyDF, aes(x = Prey.mass, y = Predator.mass, color = Predator.lifestage)) +
+p <- ggplot(MyDF, aes(x = Prey.mass,
+                      y = Predator.mass,
+                      color = Predator.lifestage)) +
   geom_point(shape = 3) +
   geom_smooth(method = "lm", formula = y ~ x, fullrange = TRUE, na.rm = TRUE) +
   scale_x_log10() +
@@ -32,8 +37,7 @@ p <- ggplot(MyDF, aes(x = Prey.mass, y = Predator.mass, color = Predator.lifesta
   theme(legend.position = "bottom",
         panel.border = element_rect(colour = "grey", fill = NA),
         legend.title = element_text(size = 9, face = "bold")) +
-  guides(colour = guide_legend(nrow = 1)
-)
+  guides(colour = guide_legend(nrow = 1))
 
 print(p)
 
@@ -43,10 +47,12 @@ graphics.off()
 # Calculate regression results corresponding to the lines fitted in the figure
 LM <- MyDF %>%
   # Remove subset that contains only 2 examples, both with the same species of prey and predator
-  filter(Record.number != "30914" & Record.number != "30929") %>%
+  filter(Record.number != "30929" & Record.number != "30914") %>%
+
   # Subset only the data needed and group by feeding type and predator lifestage
   dplyr::select(Record.number, Predator.mass, Prey.mass, Predator.lifestage, Type.of.feeding.interaction) %>%
   group_by(Type.of.feeding.interaction, Predator.lifestage) %>%
+
   # Perform linear model calculations and store specific values as columns in the dataframe
   do(mod = lm(Predator.mass ~ Prey.mass, data = .)) %>%
   mutate(

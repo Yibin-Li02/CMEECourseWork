@@ -15,7 +15,6 @@ __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
 
-
 # Raw data
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),
@@ -36,24 +35,30 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
 print("Using List Comprehensions")
 
 Bird_latin_names = [latin_names[0] for latin_names in birds]
+
 """
 Extracts the first element (Latin name) from each tuple in the birds list
 """
+
 print('Latin names:', Bird_latin_names)
 
 
 # List comprehension containing birds common names
 Bird_common_names = [common_names[1] for common_names in birds]
+
 """
 Extracts the second element (common name) from each tuple in the birds list
 """
+
 print('Commom names:', Bird_common_names)
 
 # List comprehension containing mean body masses
 Bird_mean_body_masses = [mean_body_masses[2] for mean_body_masses in birds]
+
 """
 Extracts the third element (mean body mass) from each tuple in the birds list
 """
+
 print('Mean_body_masses:', Bird_mean_body_masses)
 
 
@@ -65,27 +70,33 @@ print('Mean_body_masses:', Bird_mean_body_masses)
 print("Using Conventional Loops")
 
 # Conventional loop printing birds latin names
+
 """
 Iterates through each bird tuple and appends the Latin name to Bird_latin_names list
 """
+
 Bird_latin_names = []
 for latin_names in birds:
     Bird_latin_names.append(latin_names[0])    
 print('Latin names:', Bird_latin_names)
 
 # Conventional loop printing birds common names
+
 """
 Iterates through each bird tuple and appends the common name to Bird_common_names list
 """
+
 Bird_common_names = []
 for common_names in birds:
     Bird_common_names.append(common_names[1])
 print('Commom names:', Bird_common_names)
 
 # Conventional loop printing birds mean body mass
+
 """
 Iterates through each bird tuple and appends the mean body mass to Bird_mean_body_masses list
 """
+
 Bird_mean_body_masses = []
 for mean_body_masses in birds:
     Bird_mean_body_masses.append(mean_body_masses[2])

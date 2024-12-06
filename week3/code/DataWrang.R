@@ -1,18 +1,19 @@
 #__author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 #__version__ = '0.0.1'
 
+
 ################################################################
 ################## Wrangling the Pound Hill Dataset ############
 ################################################################
 
 ############# Load the dataset ###############
 # Load the raw dataset as a matrix.
-MyData <- as.matrix(read.csv("../data/PoundHillData.csv",header = F)) 
+MyData <- as.matrix(read.csv("../data/PoundHillData.csv",header = F))
 
 # Metadata contains descriptive information about the dataset.
 MyMetaData <- read.csv("../data/PoundHillMetaData.csv",
-                       header = T, 
-                       sep=";", 
+                       header = T,
+                       sep=";",
                        stringsAsFactors = F)
 
 ############# Inspect the dataset ###############
@@ -27,14 +28,14 @@ str(MyData)
 
 ############# Transpose ###############
 # Transpose the dataset to convert species into columns and treatments into rows.
-MyData <- t(MyData) 
+MyData <- t(MyData)
 
 ############# Replace species absences with zeros ###############
 # Replace all empty values (indicating species absence) with zeros.
 MyData[MyData == ""] = 0
 
 ############# Convert raw matrix to data frame ###############
-TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F) #stringsAsFactors = F is important!
+TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F)
 colnames(TempData) <- MyData[1,] # assign column names from original data
 
 ############# Convert from wide to long format  ###############
@@ -43,9 +44,9 @@ require(reshape2) # load the reshape2 package
 
 # Use the melt function to convert the data frame from wide format to long format.
 # In the long format, each row represents a single observation.
-MyWrangledData <- melt(TempData, 
-                       id=c("Cultivation", "Block", "Plot", "Quadrat"), 
-                       variable.name = "Species", 
+MyWrangledData <- melt(TempData,
+                       id=c("Cultivation", "Block", "Plot", "Quadrat"),
+                       variable.name = "Species",
                        value.name = "Count")
 
 # Convert relevant columns to factors for easier analysis.

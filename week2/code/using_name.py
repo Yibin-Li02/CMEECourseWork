@@ -13,6 +13,7 @@ This script is useful for understanding how the `__name__` variable can be used 
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 if __name__ == '__main__':
     print('This program is being run by itself!')
 else:

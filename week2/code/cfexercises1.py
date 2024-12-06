@@ -8,11 +8,13 @@ including iterative and recursive approaches, with detailed docstrings.
 __author__ = 'Yibin.Li Yibin.Li24@imperial.ac.uk'
 __version__ = '0.0.1'
 
+
 # imports
 
 import sys
 
 def foo_1(x):
+
     """
     Calculate the square root of a number.
 
@@ -22,9 +24,11 @@ def foo_1(x):
     Returns:
         float: The square root of x.
     """
+
     return x ** 0.5
 
 def foo_2(x, y):
+
     """
     Return the larger of two numbers.
 
@@ -35,9 +39,11 @@ def foo_2(x, y):
     Returns:
         float: The larger of x and y.
     """
+
     return x if x > y else y
 
 def foo_3(x, y, z):
+
     """
     Return three numbers in ascending order.
 
@@ -49,6 +55,7 @@ def foo_3(x, y, z):
     Returns:
         list: A list of three numbers sorted in ascending order.
     """
+
     if x > y:
         x, y = y, x
     if y > z:
@@ -58,14 +65,12 @@ def foo_3(x, y, z):
     return [x, y, z]
 
 def factorial(x, method="iterative"):
+
     """
     Calculate the factorial of a number using the specified method.
 
     Parameters:
         x (int): The number for which the factorial is calculated.
-                 Must be a non-negative integer.
-        method (str): The method to use: "iterative" or "recursive".
-                      Defaults to "iterative".
 
     Returns:
         int: The factorial of x.
@@ -73,6 +78,7 @@ def factorial(x, method="iterative"):
     Raises:
         ValueError: If x is negative or method is not recognized.
     """
+
     if x < 0:
         raise ValueError("Factorial is not defined for negative numbers.")
     
@@ -91,9 +97,11 @@ def factorial(x, method="iterative"):
         raise ValueError("Invalid method. Choose 'iterative' or 'recursive'.")
 
 def main(argv):
+
     """
     Demonstrates the functionality of the implemented functions.
     """
+    
     print(foo_1(16))
     print(foo_2(9, 100))
     print(foo_3(5, 2, 4))

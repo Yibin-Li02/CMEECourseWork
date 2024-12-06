@@ -17,6 +17,7 @@ and serves as a basic example for understanding these concepts in Python.
 __author__ = 'Yibin.Li (Yibin.Li24@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+
 import sys
 
 def even_or_odd(x=0): # if not specified, x should take value 0.
@@ -24,14 +25,17 @@ def even_or_odd(x=0): # if not specified, x should take value 0.
     """
     Find whether a number x is even or odd.
     """
+
     if x % 2 == 0: #The conditional if
         return f"{x} is Even!"
     return f"{x} is Odd!"
 
 def largest_divisor_five(x=120):
+
     """
     Find which is the largest divisor of x among 2,3,4,5.
     """
+
     largest = 0
     if x % 5 == 0:
         largest = 5
@@ -46,9 +50,11 @@ def largest_divisor_five(x=120):
     return f"The largest divisor of {x} is {largest}"
 
 def is_prime(x=70):
+
     """
     Find whether an integer is prime.
     """
+
     for i in range(2, x): #  "range" returns a sequence of integers
         if x % i == 0:
             print(f"{x} is not a prime: {i} is a divisor") 
@@ -57,9 +63,11 @@ def is_prime(x=70):
     return True 
 
 def find_all_primes(x=22):
+
     """
     Find all the primes up to x
     """
+
     allprimes = []
     for i in range(2, x + 1):
         if is_prime(i):
@@ -68,9 +76,11 @@ def find_all_primes(x=22):
     return allprimes
       
 def main(argv):
+
     """
     Main entry point of the script.
     """
+    
     try:
         print(even_or_odd(22))
         print(even_or_odd(22))
