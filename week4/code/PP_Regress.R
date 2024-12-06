@@ -5,64 +5,119 @@
 # Clear the workspace
 rm(list = ls())
 
-# Import necessary libraries
+# Load necessary libraries
 library(ggplot2)
 library(dplyr)
 
-# Load the data
-MyDF <- read.csv("../data/EcolArchives-E089-51-D1.csv")
+# Read and summarize data
+data <- read.csv("../data/EcolArchives-E089-51-D1.csv")
+str(data)
 
-# Convert masses from mg to g
-MyDF <- MyDF %>%
-  mutate(Prey.mass = ifelse
-         (Prey.mass.unit == "mg",
-          Prey.mass / 1000, Prey.mass),
-         Prey.mass.unit = "g")
+table(data$Type.of.feeding.interaction)
+table(data$Predator.lifestage)
 
-# Create PDF to save the plot
-pdf("../results/PP_Regress.pdf", width = 9, height = 12)
+# Fix the unit error for prey mass
+data <- data %>%
+  mutate(Prey.mass.grams =
+           ifelse(Prey.mass.unit == "mg", Prey.mass / 1000, Prey.mass))
 
-# Plot predator and prey mass by feeding type and predator lifestage
-p <- ggplot(MyDF, aes(x = Prey.mass,
-                      y = Predator.mass,
-                      color = Predator.lifestage)) +
-  geom_point(shape = 3) +
-  geom_smooth(method = "lm", formula = y ~ x, fullrange = TRUE, na.rm = TRUE) +
-  scale_x_log10() +
-  scale_y_log10() +
-  xlab("Prey mass in grams") +
-  ylab("Predator mass in grams") +
-  facet_grid(Type.of.feeding.interaction ~ .) +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        panel.border = element_rect(colour = "grey", fill = NA),
-        legend.title = element_text(size = 9, face = "bold")) +
-  guides(colour = guide_legend(nrow = 1))
+# Fit a linear model
+model <- lm(Predator.mass ~ Prey.mass.grams +
+              Predator.lifestage +
+              Type.of.feeding.interaction,
+            data = data)
+summary(model)
 
-print(p)
+# Check ranges for predator and prey mass
+range(data$Prey.mass.grams, na.rm = TRUE)
+range(data$Predator.mass, na.rm = TRUE)
 
-# Close the PDF device
-graphics.off()
+# Find unique combinations of feeding type and predator life stage
+combinations <- distinct(data, Type.of.feeding.interaction, Predator.lifestage)
 
-# Calculate regression results corresponding to the lines fitted in the figure
-LM <- MyDF %>%
-  # Remove subset that contains only 2 examples, both with the same species of prey and predator
-  filter(Record.number != "30929" & Record.number != "30914") %>%
+# Initialize a dataframe to store regression results
+regression_results <- data.frame(
+  Type.of.feeding.interaction = character(),
+  Predator.lifestage = character(),
+  slope = numeric(),
+  intercept = numeric(),
+  r_squared = numeric(),
+  f_statistic = numeric(),
+  p_value = numeric(),
+  stringsAsFactors = FALSE
+)
 
-  # Subset only the data needed and group by feeding type and predator lifestage
-  dplyr::select(Record.number, Predator.mass, Prey.mass, Predator.lifestage, Type.of.feeding.interaction) %>%
-  group_by(Type.of.feeding.interaction, Predator.lifestage) %>%
+# Loop through each combination to perform regression
+for (i in 1:nrow(combinations)) {
+  feeding_type <- combinations$Type.of.feeding.interaction[i]
+  predator_stage <- combinations$Predator.lifestage[i]
 
-  # Perform linear model calculations and store specific values as columns in the dataframe
-  do(mod = lm(Predator.mass ~ Prey.mass, data = .)) %>%
-  mutate(
-    Regression.slope = summary(mod)$coefficients[2, 1],
-    Regression.intercept = summary(mod)$coefficients[1, 1],
-    R.squared = summary(mod)$adj.r.squared,
-    Fstatistic = summary(mod)$fstatistic[1],
-    P.value = summary(mod)$coefficients[2, 4]
-  ) %>%
-  dplyr::select(-mod)
+  # Filter data for the current combination
+  subset_data <- data %>%
+    filter(Type.of.feeding.interaction == feeding_type,
+           Predator.lifestage == predator_stage)
+
+  # Check if there are enough data points for regression
+  if (nrow(subset_data) > 2) {
+    model <- lm(Predator.mass ~ Prey.mass.grams, data = subset_data)
+    model_summary <- summary(model)
+
+    # Store regression results
+    regression_results <- rbind(regression_results, data.frame(
+      Type.of.feeding.interaction = feeding_type,
+      Predator.lifestage = predator_stage,
+      slope = coef(model)[2],
+      intercept = coef(model)[1],
+      r_squared = model_summary$r.squared,
+      f_statistic = model_summary$fstatistic[1],
+      p_value = coef(model_summary)[2, 4]
+    ))
+  } else {
+    # Store NA if not enough data
+    regression_results <- rbind(regression_results, data.frame(
+      Type.of.feeding.interaction = feeding_type,
+      Predator.lifestage = predator_stage,
+      slope = NA,
+      intercept = NA,
+      r_squared = NA,
+      f_statistic = NA,
+      p_value = NA
+    ))
+  }
+}
 
 # Save regression results to CSV
-write.csv(LM, "../results/PP_Regress_Results.csv", row.names = FALSE)
+write.csv(regression_results, file = "../results/PP_Regression.csv", row.names = FALSE)
+
+# Visualization of predator-prey mass relationships
+p <- ggplot(data, aes(x = Prey.mass, y = Predator.mass, colour = Predator.lifestage)) +
+  geom_point(shape = I(3), size = I(1.5)) +  # Scatter points
+  geom_smooth(method = "lm", fullrange = TRUE) +  # Linear model smoothing
+  facet_wrap(~ Type.of.feeding.interaction, nrow = 5, strip.position = "right") +  # Facet by Feeding Type
+  labs(
+    x = "Prey Mass in grams",
+    y = "Predator Mass in grams",
+    color = "Predator Life Stage"
+  ) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = 8, face = "bold"),
+    strip.background = element_rect(fill = "grey90", color = NA),
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.direction = "horizontal", 
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 8),
+    axis.text = element_text(size = 8),
+    axis.title = element_text(size = 10),
+    plot.title = element_text(angle = -90, vjust = 0.5, hjust = 0.5, size = 12, face = "bold"),
+    plot.title.position = "plot" , 
+    panel.border = element_rect(color = "black", fill = NA, size = 0.5)
+  ) +
+  guides(colour = guide_legend(nrow = 1)) +
+  scale_x_log10() + 
+  scale_y_log10() +
+  coord_fixed(ratio = 0.4)
+
+#Save the picture as PDF
+ggsave("../results/PP_Regression.pdf", plot = p, width = 10, height = 8)
