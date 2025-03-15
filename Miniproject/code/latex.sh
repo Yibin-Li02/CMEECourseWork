@@ -16,12 +16,6 @@ bibtex Miniproject
 pdflatex -shell-escape Miniproject.tex
 pdflatex -shell-escape Miniproject.tex
 
-# Get the word count without saving to file
-WORDCOUNT=$(texcount -sum -inc -0 Miniproject.tex | awk '{print $1}')
-
-# Pass the word count as an environment variable to LaTeX
-pdflatex -shell-escape "\def\wordcountnumber{$WORDCOUNT} \input{Miniproject.tex}"
-
 # Move the output PDF to the output directory
 mv Miniproject.pdf $OUTPUT_DIR/$PDF_NAME
 
@@ -31,7 +25,8 @@ rm *.log
 rm *.bbl
 rm *.blg
 rm *.out
+rm *.txt
 
-echo "Word Count: $WORDCOUNT"
 echo "Compilation completed. Check $OUTPUT_DIR/$PDF_NAME for the final PDF."
+
 

@@ -18,7 +18,8 @@
 \graphicspath{{../results/}} 
 \usepackage{pdfpages}
 \usepackage{datetime} 
-\newcommand{\wordcountnumber}{\number\wordcountnumber}
+\immediate\write18{texcount -sum -inc -0 Miniproject.tex > wordcount.txt}
+\newcommand{\wordcount}{\input{wordcount.txt}}  
  
 \usepackage{hyperref}
 
@@ -33,7 +34,7 @@ Imperial College London \\
 \texttt{yl2524@ic.ac.uk}
 }
 
-\date{14/3/2025 \\Word Count: \number\wordcountnumber}
+\date{14/3/2025 \\Word Count: \wordcount}
 \maketitle
 
 
