@@ -64,7 +64,8 @@ The `code` include several shell scripts that perform various tasks:
 
 The `data` directory contains the following files:
 
--   **E.coli.fasta**, **407228326.fasta** and **407228412.fasta**: FASTA files containing biological sequence data. 
+-   **E.coli.fasta**, **407228326.fasta** and **407228412.fasta**: FASTA files containing biological sequence data.
+-   **1800.csv**, **1801.csv**, **1802.csv** and **1803.csv**: csv files containing temperature data.
 
 
 ## Results
