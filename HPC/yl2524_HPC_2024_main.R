@@ -358,16 +358,6 @@ neutral_step_speciation <- function(community, speciation_rate){
 }
 
 # Question 16
-
-
-neutral_generation_speciation <- function(community, speciation_rate){
-  size <- length(community)
-  for (i in 1:floor(size / 2)) {
-    community <- neutral_step_speciation(community, speciation_rate)
-  }
-  return(community)
-}
-
 # calculate state of community after ONE generation has passed, including the 
 # possibility of speciation
 neutral_generation_speciation <- function(community,speciation_rate)  {
@@ -459,6 +449,7 @@ sum_vect <- function(x, y) {
   
   return(x + y)
 }
+
 # Question 22
 question_22 <- function() {
   graphics.off()  # Clear any existing plots
@@ -684,9 +675,6 @@ plot_neutral_cluster_results <- function() {
   return(combined_results)
 }
 
-# Run the updated plotting function
-
-
 
 
 # Challenge questions - these are substantially harder and worth fewer marks.
@@ -829,7 +817,6 @@ create_challenge_B_results <- function() {
 
 
 
-
 Challenge_B <- function() {
   if (!file.exists("challenge_B_results.rda")) {
     stop("Error: challenge_B_results.rda does not exist. Run create_challenge_B_results() first.")
@@ -867,7 +854,6 @@ Challenge_B <- function() {
                "generations."))
   
 }
-
 
 
 
@@ -951,9 +937,8 @@ Challenge_C <- function() {
   # Close PNG device
   Sys.sleep(0.1)
   dev.off()
-  
-
 }
+
 
 # Challenge question D
 create_challenge_D_results <- function() {
@@ -1011,7 +996,6 @@ create_challenge_D_results <- function() {
 }
 
 
-
 Challenge_D <- function() {
   
   # Check if the RDA file exists
@@ -1063,9 +1047,7 @@ Challenge_D <- function() {
 
 # Challenge question E
 
-#############################################################
 # 1) Create HPC summary .rda
-#############################################################
 create_challenge_E_data <- function(
     rda_pattern = "^neutral_cluster_output_.*\\.rda$",
     out_rda     = "Challenge_E_results.rda"
@@ -1154,9 +1136,8 @@ create_challenge_E_data <- function(
   cat("Created HPC summary in", out_rda, "\n")
 }
 
-#############################################################
+
 # 2) Create Coalescence vs HPC comparison plot
-#############################################################
 Challenge_E <- function(
     in_rda            = "Challenge_E_results.rda",
     out_png           = "challenge_E.png",
