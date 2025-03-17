@@ -1047,271 +1047,247 @@ Challenge_D <- function() {
 
 # Challenge question E
 
-# 1) Create HPC summary .rda
-create_challenge_E_data <- function(
-    rda_pattern = "^neutral_cluster_output_.*\\.rda$",
-    out_rda     = "Challenge_E_results.rda"
-) {
-  # Helper to sum two named integer vectors, padding if needed
-  sum_vect <- function(x, y) {
-    len_diff <- length(x) - length(y)
-    if (len_diff > 0) {
-      y <- c(y, rep(0, len_diff))
-    } else if (len_diff < 0) {
-      x <- c(x, rep(0, -len_diff))
+
+# --------------------------------------------------------------------------
+# NEW FUNCTION 1: calculate and save the HPC results (challenge_E_results.rda)
+# --------------------------------------------------------------------------
+calc_neutral_cluster_results <- function() {
+  # Helper to sum two octave vectors with different lengths:
+  sum_vect <- function(a, b) {
+    len_a <- length(a)
+    len_b <- length(b)
+    if (len_a < len_b) {
+      a <- c(a, rep(0, len_b - len_a))
+    } else if (len_b < len_a) {
+      b <- c(b, rep(0, len_a - len_b))
     }
-    return(x + y)
+    return(a + b)
   }
   
-  # 1. Find all HPC .rda files
-  files <- list.files(pattern = rda_pattern)
+  # Identify and read all results files
+  files <- list.files(pattern = "^neutral_cluster_output_\\d+\\.rda$")
   if (length(files) == 0) {
-    stop("No .rda files found matching pattern: ", rda_pattern)
+    stop("No '^neutral_cluster_output_\\d+\\.rda$' files found in the current directory.")
   }
   
-  # 2. Initialize data structures
-  #    HPC_data[["J_v"]] = list of replicate mean octaves
-  HPC_data <- list()
+  # Prepare data structures to accumulate sums of octave vectors
+  # We'll track four community sizes: 500, 1000, 2500, 5000
+  # Each entry is initially integer(0) so we can use sum_vect()
+  octave_sums <- list(
+    "500"  = integer(0),
+    "1000" = integer(0),
+    "2500" = integer(0),
+    "5000" = integer(0)
+  )
+  # We'll also track how many total octaves we accumulate for each size
+  count_octaves <- list(
+    "500"  = 0,
+    "1000" = 0,
+    "2500" = 0,
+    "5000" = 0
+  )
   
-  # 3. Iterate over each HPC file
-  for (ff in files) {
-    load(ff)  # Typically loads 'size', 'speciation_rate', 'abundance_list', ...
-    
-    # Check that the needed variables exist:
-    if (!exists("size") || !exists("speciation_rate") || !exists("abundance_list")) {
-      cat("Warning: file", ff, "is missing size/speciation_rate/abundance_list.\n")
+  # Loop over each file, load it, and accumulate the post-burn-in octaves
+  for (f in files) {
+    load(f)  # should load variables: 'abundance_list', 'size'
+    # 'size' must match one of the known keys
+    size_char <- as.character(size)  
+    if (!size_char %in% c("500", "1000", "2500", "5000")) {
+      warning(paste("File", f, "has unexpected size:", size_char))
       next
     }
     
-    # Create a key like "500_0.1"
-    key <- paste0(size, "_", speciation_rate)
-    
-    if (is.null(HPC_data[[key]])) {
-      HPC_data[[key]] <- list()
-    }
-    
-    # 4. Summarize each file's abundance_list into a single “mean octave”
-    #    (in case abundance_list had multiple snapshots)
-    oct_sum <- rep(0, 50)
-    valid_count <- 0
+    # 'abundance_list' is assumed to be a list of octave vectors
+    # recorded after burn-in. We'll sum them all up.
     for (octv in abundance_list) {
-      if (length(octv) > 0) {
-        oct_sum <- sum_vect(oct_sum, octv)
-        valid_count <- valid_count + 1
-      }
-    }
-    if (valid_count > 0) {
-      mean_oct <- oct_sum / valid_count
-      HPC_data[[key]][[ length(HPC_data[[key]]) + 1 ]] <- mean_oct
+      # sum_vect() adds two vectors, padding the shorter with zeros
+      octave_sums[[size_char]] <- sum_vect(octave_sums[[size_char]], octv)
+      count_octaves[[size_char]] <- count_octaves[[size_char]] + 1
     }
   }
   
-  if (length(HPC_data) == 0) {
-    stop("No valid HPC data found in the .rda files.")
-  }
+  # Compute mean octave for each size
+  mean_octave_500  <- octave_sums[["500"]]  / max(1, count_octaves[["500"]])
+  mean_octave_1000 <- octave_sums[["1000"]] / max(1, count_octaves[["1000"]])
+  mean_octave_2500 <- octave_sums[["2500"]] / max(1, count_octaves[["2500"]])
+  mean_octave_5000 <- octave_sums[["5000"]] / max(1, count_octaves[["5000"]])
   
-  # 5. Combine HPC replicate means for each (J, v) into HPC_final
-  HPC_final <- list()
-  for (k in names(HPC_data)) {
-    replicates <- HPC_data[[k]]
-    if (!length(replicates)) {
-      cat("No HPC replicates for key =", k, "\n")
-      next
-    }
-    # Sum all replicate means, then average
-    sum_oct <- rep(0, 50)
-    for (octv in replicates) {
-      sum_oct <- sum_vect(sum_oct, octv)
-    }
-    HPC_final[[k]] <- sum_oct / length(replicates)
-    
-    # Trim trailing zeros
-    while (length(HPC_final[[k]]) > 0 && tail(HPC_final[[k]], 1) == 0) {
-      HPC_final[[k]] <- HPC_final[[k]][ -length(HPC_final[[k]]) ]
-    }
-  }
+  # Create a list in the order 500, 1000, 2500, 5000
+  # These are your final mean octave distributions across runs/time.
+  results_list <- list(
+    mean_octave_500  = mean_octave_500,
+    mean_octave_1000 = mean_octave_1000,
+    mean_octave_2500 = mean_octave_2500,
+    mean_octave_5000 = mean_octave_5000
+  )
   
-  # 6. Save the results to an .rda
-  save(HPC_data, HPC_final, file = out_rda)
-  cat("Created HPC summary in", out_rda, "\n")
+  # Save this list as "challenge_E_results.rda"
+  save(results_list, file = "challenge_E_results.rda")
+  cat("calc_neutral_cluster_results: Done.\n",
+      "Summarized octaves saved in 'challenge_E_results.rda'.\n")
 }
 
-
 # 2) Create Coalescence vs HPC comparison plot
-Challenge_E <- function(
-    in_rda            = "Challenge_E_results.rda",
-    out_png           = "challenge_E.png",
-    hpc_total_hours   = 11.5  # HPC ran in parallel for 11.5 hours
-) {
-  # 0) Helper functions
-  sum_vect <- function(x, y) {
-    len_diff <- length(x) - length(y)
-    if (len_diff > 0) {
-      y <- c(y, rep(0, len_diff))
-    } else if (len_diff < 0) {
-      x <- c(x, rep(0, -len_diff))
-    }
-    return(x + y)
-  }
-  
-  octaves <- function(ab_vec) {
-    return(table(floor(log2(ab_vec)) + 1))
-  }
-  
-  coalescence_simulation <- function(J, v) {
-    # "theta" = v*(J-1)/(1-v)
-    lineages <- rep(1, J)
-    abundances <- c()
-    N <- J
-    theta <- v * (J - 1) / (1 - v)
-    
-    while (N > 1) {
-      i <- sample(seq_len(N), 1)
-      # Probability of speciation
-      p_speciation <- theta / (theta + N - 1)
-      if (runif(1) <= p_speciation) {
-        abundances <- c(abundances, lineages[i])
+Challenge_E <- function(hpc_total_hours = 11.5) {
+  # -----------------------
+  # (1) Define coalescence simulation
+  # -----------------------
+  coalescence_simulation <- function(size, speciation_rate) {
+    lineages <- rep(1, size)
+    abundances <- integer(0)
+    num_lineages <- size
+    while (num_lineages > 1) {
+      j <- sample(seq_len(num_lineages), 1)
+      if (runif(1) < speciation_rate) {
+        # Speciation event: finalize lineages[j] into 'abundances'
+        abundances <- c(abundances, lineages[j])
       } else {
-        # coalescence
-        j <- sample(seq_len(N)[-i], 1)
+        # Coalescence with another random lineage
+        possible_parents <- setdiff(seq_len(num_lineages), j)
+        i <- sample(possible_parents, 1)
         lineages[i] <- lineages[i] + lineages[j]
-        lineages <- lineages[-j]
       }
-      N <- N - 1
+      # Remove j-th lineage
+      lineages <- lineages[-j]
+      num_lineages <- num_lineages - 1
     }
-    abundances <- c(abundances, lineages[1])
-    return(abundances)
+    # Add the last remaining lineage
+    abundances <- c(abundances, lineages)
+    # Sort in decreasing order
+    sort(abundances, decreasing = TRUE)
   }
   
-  # 1) Load HPC summary
-  if (!file.exists(in_rda)) {
-    stop("File does not exist: ", in_rda)
-  }
-  load(in_rda)  
-  # => HPC_data, HPC_final
-  
-  if (!exists("HPC_data") || !exists("HPC_final")) {
-    stop("Missing HPC_data / HPC_final in .rda file.")
-  }
-  
-  # 2) For each (J, v), run coalescence as many times as HPC had replicates
-  Coalescence_final <- list()
-  Coalescence_time  <- list()
-  
-  for (k in names(HPC_final)) {
-    # HPC_data[[k]] is the list of replicate means => # HPC replicates
-    n_coal_reps <- length(HPC_data[[k]])
-    if (n_coal_reps < 1) {
-      cat("No HPC replicates => skip coalescence for key =", k, "\n")
-      next
+  # Helper to convert an abundance vector to an octave vector:
+  octaves <- function(x) {
+    if (length(x) == 0) return(integer(0))
+    max_val <- max(x)
+    max_oct <- floor(log2(max_val)) + 1
+    result <- integer(max_oct)
+    for (val in x) {
+      idx <- floor(log2(val)) + 1
+      result[idx] <- result[idx] + 1
     }
-    
-    # parse (J, v)
-    parts <- strsplit(k, "_")[[1]]
-    J <- as.numeric(parts[1])
-    v <- as.numeric(parts[2])
-    
-    cat("\nRunning coalescence for (J=", J, ", v=", v, "), replicates =", n_coal_reps, "\n")
-    
-    t0 <- proc.time()[3]
-    oct_sum <- rep(0, 50)
-    for (r in seq_len(n_coal_reps)) {
-      ab <- coalescence_simulation(J, v)
-      ab_oct <- octaves(ab)
-      oct_sum <- sum_vect(oct_sum, ab_oct)
-    }
-    ctime <- proc.time()[3] - t0
-    Coalescence_time[[k]] <- ctime
-    
-    coalesc_mean <- oct_sum / n_coal_reps
-    # Trim trailing zeros
-    while (length(coalesc_mean) > 0 && tail(coalesc_mean, 1) == 0) {
-      coalesc_mean <- coalesc_mean[-length(coalesc_mean)]
-    }
-    Coalescence_final[[k]] <- coalesc_mean
+    result
   }
   
-  # 3) Build data frame for plotting HPC vs Coalescence
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    stop("Please install ggplot2.")
-  }
-  library(ggplot2)
+  # -----------------------
+  # (2) Run coalescence for each size, measuring time for each
+  # -----------------------
+  speciation_rate <- 0.1
+  sizes <- c(500, 1000, 2500, 5000)
   
-  plot_data <- data.frame()
-  for (k in names(HPC_final)) {
-    if (is.null(Coalescence_final[[k]])) next
+  coalescence_results    <- list()
+  coalescence_time_list  <- numeric(length(sizes))  # to store per-size elapsed time
+  names(coalescence_time_list) <- as.character(sizes)
+  
+  for (sz in sizes) {
+    t_start <- proc.time()["elapsed"]
     
-    HPC_vec  <- HPC_final[[k]]
-    Coal_vec <- Coalescence_final[[k]]
+    coalescence_results[[as.character(sz)]] <- 
+      coalescence_simulation(sz, speciation_rate)
     
-    max_len  <- max(length(HPC_vec), length(Coal_vec))
-    HPC_pad  <- c(HPC_vec, rep(0, max_len - length(HPC_vec)))
-    Coal_pad <- c(Coal_vec, rep(0, max_len - length(Coal_vec)))
+    # Elapsed time for THIS size
+    elapsed_for_sz <- proc.time()["elapsed"] - t_start
+    coalescence_time_list[as.character(sz)] <- elapsed_for_sz
+  }
+  
+  # -----------------------
+  # (3) Load HPC summary for comparison
+  # -----------------------
+  if (!file.exists("challenge_E_results.rda")) {
+    stop("File 'challenge_E_results.rda' not found. Please run calc_neutral_cluster_results() first.")
+  }
+  load("challenge_E_results.rda")  # loads 'results_list'
+  
+  # -----------------------
+  # (4) Plot HPC vs. Coalescence
+  # -----------------------
+  png("challenge_E.png", width = 900, height = 700)
+  par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+  
+  for (sz in sizes) {
+    sz_char <- as.character(sz)
+    hpc_oct_name <- paste0("mean_octave_", sz_char)
+    hpc_octave   <- results_list[[hpc_oct_name]]
+    if (is.null(hpc_octave)) {
+      hpc_octave <- integer(0)
+    }
+    coalesced_ab     <- coalescence_results[[sz_char]]
+    coalesced_octave <- octaves(coalesced_ab)
     
-    df_k <- rbind(
-      data.frame(key = k, bin = seq_len(max_len), count = HPC_pad,  source = "HPC"),
-      data.frame(key = k, bin = seq_len(max_len), count = Coal_pad, source = "Coalescence")
+    max_len <- max(length(hpc_octave), length(coalesced_octave))
+    hpc_padded  <- c(hpc_octave, rep(0, max_len - length(hpc_octave)))
+    coal_padded <- c(coalesced_octave, rep(0, max_len - length(coalesced_octave)))
+    combined_data <- rbind(hpc_padded, coal_padded)
+    
+    barplot(
+      combined_data,
+      beside    = TRUE,
+      col       = c("blue", "red"),
+      main      = paste("Size =", sz_char),
+      xlab      = "Octave Class",
+      ylab      = "Number of Species",
+      legend    = c("HPC", "Coalescence"),
+      names.arg = 1:max_len
     )
-    plot_data <- rbind(plot_data, df_k)
   }
   
-  # Make friendlier facet labels, e.g. "J=500, v=0.1"
-  plot_data$FacetLabel <- sapply(plot_data$key, function(x) {
-    sp <- strsplit(x, "_")[[1]]
-    sprintf("J=%s, v=%s", sp[1], sp[2])
-  })
-  
-  # 4) Create multi‐panel barplot
-  png(out_png, width=600, height=400)
-  g <- ggplot(plot_data, aes(x = factor(bin), y = count, fill = source)) +
-    geom_bar(position = "dodge", stat = "identity") +
-    facet_wrap(~ FacetLabel, scales = "free_y") +
-    labs(x = "Octave bin (log2 abundance)", 
-         y = "Mean species count",
-         title = "Neutral HPC vs. Coalescence: Species‐Abundance Distributions") +
-    theme_minimal(base_size = 14)
-  print(g)
   Sys.sleep(0.1)
   dev.off()
   
-  # 5) Summarize CPU hours: HPC vs Coalescence (all with print)
+  # -----------------------
+  # (5) Summarize HPC vs Coalescence TIMING
+  #     EXACT snippet you provided, but adapted to use:
+  #       - hpc_total_hours (function argument)
+  #       - coalescence_time_list for the per-size times
+  # -----------------------
   
-  # Print header
-  print("==========================================")
-  print("         HPC vs. Coalescence TIMING       ")
-  print("==========================================")
+  # We'll build a character vector of lines, then print + return them
+  result_lines <- c()
   
-  # HPC total hours is 11.5 (parallel run)
-  print("Total HPC CPU hours:")
-  print(11.5)
+  result_lines <- c(
+    result_lines,
+    "==========================================",
+    "         HPC vs. Coalescence TIMING       ",
+    "==========================================",
+    "Total HPC CPU hours:",
+    as.character(hpc_total_hours),
+    ""
+  )
   
-  # Compute total coalescence hours across all keys
-  total_coal_hours <- 0
-  for (k in names(Coalescence_time)) {
-    total_coal_hours <- total_coal_hours + (Coalescence_time[[k]] / 3600)
-  }
+  # Sum up coalescence hours
+  total_coal_hours <- sum(coalescence_time_list) / 3600
   
-  print("Total Coalescence CPU hours:")
-  print(total_coal_hours)
-  print("")
+  result_lines <- c(
+    result_lines,
+    "Total Coalescence CPU hours:",
+    as.character(total_coal_hours),
+    ""
+  )
   
-  # If you also want a detailed breakdown per (J, v), do:
-  for (k in names(Coalescence_time)) {
-    # Optional details for each scenario:
-    coal_sec   <- Coalescence_time[[k]]
+  # Detailed breakdown per size (like 'k in names(Coalescence_time)')
+  for (k in names(coalescence_time_list)) {
+    coal_sec   <- coalescence_time_list[k]
     coal_hours <- coal_sec / 3600
-    print(paste("Key:", k))
-    print(paste("  Coalescence seconds:", round(coal_sec, 2)))
-    print(paste("  Coalescence hours:  ", round(coal_hours, 4)))
+    result_lines <- c(
+      result_lines,
+      paste("Key:", k),
+      paste("  Coalescence seconds:", round(coal_sec, 2)),
+      paste("  Coalescence hours:  ", round(coal_hours, 4))
+    )
   }
   
-  # Finally, print the reason coalescence is so much faster:
-  print("Coalescence simulates the population backwards in time, merging lineages until only one ancestor remains. This bypasses the need to model every birth‐death event forward through many generations, drastically reducing the total number of operations. By contrast, standard neutral simulations must track each individual at every timestep, which quickly becomes very expensive as the population size and generations grow.")
-
+  result_lines <- c(
+    result_lines,
+    "Coalescence simulates the population backwards in time, merging lineages until only one ancestor remains. This bypasses the need to model every birth‐death event forward through many generations, drastically reducing the total number of operations. By contrast, standard neutral simulations must track each individual at every timestep, which quickly becomes very expensive as the population size and generations grow."
+  )
+  
+  # Print to console
+  cat(paste(result_lines, collapse = "\n"), "\n")
+  
+  # Return the lines as a character vector
+  return(invisible(result_lines))
 }
-
-
-
 
 
 
